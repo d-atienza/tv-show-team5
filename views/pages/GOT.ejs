@@ -1,7 +1,7 @@
 <%- include("../partials/header.ejs", {title: "Main Page"}) %>
 
 
-<p>This content comes from <code>/views/pages/GOT.ejs</code></p>
+<p>This content comes from <a href="https://www.tvmaze.com/shows/82/game-of-thrones">TVMaze - Game of Thrones</a></p>
 
 <section>
 
@@ -21,7 +21,7 @@
       <td><%= episode.name %></td>
       <td><%= episode.season %></td>
       <td><%= episode.number %></td>
-      <td><%= episode.summary %></td>
+      <td><%= episode.summary.replace(/<\/?p>/gi,"") %></td>
       <td><img src=<%= episode.image.medium %> width="20%"></td>
     </tr>
     <%})%>
