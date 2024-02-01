@@ -5,7 +5,28 @@
 
 <section>
 
-  <p>You should put stuff here.</p>
+  <p>Game of Thrones is a great show, until the last season anyway.</p>
+
+  <h2>Game of Thrones Episodes</h2>
+  <table>
+    <tr>
+      <th>Episode Name</th>
+      <th>Season Number</th>
+      <th>Episode Number</th>
+      <th>Episode Summary</th>
+      <th>Episode Image</th>
+    </tr>
+    <% GOT.forEach((episode) => { %>
+    <tr>
+      <td><%= episode.name %></td>
+      <td><%= episode.season %></td>
+      <td><%= episode.number %></td>
+      <td><%= episode.summary %></td>
+      <td><img src=<%= episode.image.medium %> width="20%"></td>
+    </tr>
+    <%})%>
+  </table>
+
 </section>
 
 <%- include("../partials/footer.ejs") %>

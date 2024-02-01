@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/GOT", (req, res) => {
-    res.render("pages/GOT");
+    res.render("pages/GOT", { GOT: gameOfThronesEpisodes });
 });
 
 app.get("/db-test", async (req, res) => {
