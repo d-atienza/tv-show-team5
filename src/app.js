@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
     res.render("pages/index");
 });
 
+app.get("/GOT", (req, res) => {
+    res.render("pages/GOT");
+});
+
 app.get("/db-test", async (req, res) => {
     try {
         const dbResult = await query("select now()");
