@@ -19,8 +19,11 @@
     <% GOT.forEach((episode) => { %>
     <tr>
       <td><%= episode.name %></td>
-      <td><%= episode.season %></td>
-      <td><%= episode.number %></td>
+      <td><% if (episode.number < 10) {%>
+        <%= `S0${episode.season}E0${episode.number}`%>
+        <%} else {%>
+        <%= `S0${episode.season}E${episode.number}`%>
+        <% } %></td>
       <td><%= episode.summary.replace(/<\/?p>/gi,"") %></td>
       <td><img src=<%= episode.image.medium %> width="50%"></td>
     </tr>
