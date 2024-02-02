@@ -1,6 +1,7 @@
 const { app } = require("./support/setupExpress");
 const { query } = require("./support/db");
 const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
+const { createEpCode } = require("./supportFunctions");
 
 /** 
  @typedef {import('./data/episodeType').Episode} Episode
@@ -10,13 +11,25 @@ const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
 summariseEpisodesToConsole(gameOfThronesEpisodes);
 
 //configure the server's route handlers
+
 app.get("/", (req, res) => {
     res.render("pages/index");
 });
 
+////////////////////////////////////
+
 app.get("/GOT", (req, res) => {
-    res.render("pages/GOT", { GOT: gameOfThronesEpisodes });
+    const episodeArray = [...gameOfThronesEpisodes]; // clones the array of episode objects
+
+    for (let i = 0; i < episodeArray.length; i++) {
+        episodeArray[i]["epCode"] = // this line creates a new key in episodeObject which is targeted by episodeArray[i]
+            createEpCode(episodeArray[i]); //this line creates a new value to pair with new key
+    }
+
+    res.render("pages/GOT", { GOT: episodeArray });
 });
+
+////////////////////////////////////
 
 app.get("/db-test", async (req, res) => {
     try {
