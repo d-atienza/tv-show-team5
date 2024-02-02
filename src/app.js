@@ -28,6 +28,13 @@ app.get("/GOT", (req, res) => {
 
 // level 150 - route parameter to
 
+app.get("/GOT/:episode", (req, res) => {
+    // may require a ?
+    let episodeSelection = req.params.episode;
+    let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
+    res.render("pages/GOT", { GOT: episodeSelection });
+});
+
 ////////////////////////////////////
 app.get("/db-test", async (req, res) => {
     try {
