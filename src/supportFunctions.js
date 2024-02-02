@@ -2,10 +2,17 @@ function generateNewEpisodeArray(inputArray) {
     const episodeArray = [...inputArray]; // clones the array of episode objects
 
     for (let episode of episodeArray) {
-        episode.epCode = createEpCode(episode); //this line creates a new value to pair with new key
+        // accessing the singular episode object in the array
+        episode.epCode = createEpCode(episode); //this line creates a new value to pair with new episode code key
+        episode.neatSummary = removePTags(episode); //this line creates a new value to pair with new summary key
     }
 
     return episodeArray;
+}
+
+function removePTags(episode) {
+    const newSummary = episode.summary.replace(/<\/?p>/gi, "");
+    return newSummary;
 }
 
 function createEpCode(episode) {

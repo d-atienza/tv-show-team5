@@ -19,7 +19,7 @@
     <tr>
       <td><%= episode.name %></td>
       <td><%= episode.epCode %></td>
-      <td><%= episode.summary.replace(/<\/?p>/gi,"") %></td>
+      <td><%= episode.neatSummary %></td>
       <td><img src=<%= episode.image.medium %> width="50%"></td>
     </tr>
     <%})%>
