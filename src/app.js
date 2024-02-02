@@ -1,7 +1,7 @@
 const { app } = require("./support/setupExpress");
 const { query } = require("./support/db");
 const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
-const { createEpCode } = require("./supportFunctions");
+const { generateNewEpisodeArray } = require("./supportFunctions");
 
 /** 
  @typedef {import('./data/episodeType').Episode} Episode
@@ -18,19 +18,17 @@ app.get("/", (req, res) => {
 
 ////////////////////////////////////
 
+// level 100
 app.get("/GOT", (req, res) => {
-    const episodeArray = [...gameOfThronesEpisodes]; // clones the array of episode objects
-
-    for (let i = 0; i < episodeArray.length; i++) {
-        episodeArray[i]["epCode"] = // this line creates a new key in episodeObject which is targeted by episodeArray[i]
-            createEpCode(episodeArray[i]); //this line creates a new value to pair with new key
-    }
-
-    res.render("pages/GOT", { GOT: episodeArray });
+    let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
+    res.render("pages/GOT", { GOT: episodesWithEpCode });
 });
 
 ////////////////////////////////////
 
+// level 150 - route parameter to
+
+////////////////////////////////////
 app.get("/db-test", async (req, res) => {
     try {
         const dbResult = await query("select now()");
