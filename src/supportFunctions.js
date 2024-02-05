@@ -33,10 +33,16 @@ function findIndividualEpisode(searchTerm, arrayOfObjects) {
     return individualEpisode;
 }
 
+function filterEpisodeArrayWithSearch(searchTerm, arrayOfObjects) {
+    let resultArray = [];
+    //use .includes to verify each object against search term, if true then push to result array. Return result array. Update app code to send result array instead.
+}
+
 module.exports = {
     generateNewEpisodeArray,
     findIndividualEpisode,
     createEpCode,
+    filterEpisodeArrayWithSearch,
 };
 
 // using .map() to generate new array of GOT episode objects

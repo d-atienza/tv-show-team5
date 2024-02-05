@@ -4,6 +4,7 @@ const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
 const {
     generateNewEpisodeArray,
     findIndividualEpisode,
+    filterEpisodeArrayWithSearch,
 } = require("./supportFunctions");
 
 /** 
@@ -21,9 +22,14 @@ app.get("/", (req, res) => {
 
 ////////////////////////////////////
 
-// level 100
+// level 100 & level 200
 app.get("/GOT", (req, res) => {
+    let searchTerm = req.query.filterEp;
     let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
+    let filteredSearchArray = filterEpisodeArrayWithSearch(
+        searchTerm,
+        episodesWithEpCode,
+    );
     res.render("pages/GOT", { GOT: episodesWithEpCode });
 });
 
@@ -41,8 +47,6 @@ app.get("/GOT/:episodeid", (req, res) => {
     );
     res.render("pages/GOTEpisode", { GOT: episodeSelection });
 });
-///////////////////////////////////
-// level 200 - form to filter
 
 ////////////////////////////////////
 app.get("/db-test", async (req, res) => {
