@@ -44,7 +44,7 @@ app.get("/GOT", (req, res) => {
 
 ////////////////////////////////////
 
-// level 150 - route parameter to
+// level 150 - route parameter to singular episode
 
 app.get("/GOT/:episodeid", (req, res) => {
     let searchTerm = req.params.episodeid;
@@ -54,6 +54,16 @@ app.get("/GOT/:episodeid", (req, res) => {
         episodesWithEpCode,
     );
     res.render("pages/GOTEpisode", { GOT: episodeSelection });
+});
+
+////////////////////////////////////
+
+// level 250 - adding in favourite episodes
+app.get("/favourites", async (req, res) => {
+    const dbResult = await query("select * from episodes");
+    const rows = dbResult.rows;
+    res.json(rows);
+    //res.render("pages/favourites", { GOT: filteredSearchArray, totalEpisodes });
 });
 
 ////////////////////////////////////

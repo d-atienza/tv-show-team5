@@ -1,3 +1,16 @@
+// using .map() to generate new array of GOT episode objects
+//
+// function addEpCodeToAll(inputArray) {
+//     let modifiedArray = inputArray.map((episode) => {
+//         const stringSeason = episode.season.toString().padStart(2, "0");
+//         const stringNumber = episode.number.toString().padStart(2, "0");
+//         const epCode = S${stringSeason}E${stringNumber};
+//         let decoratedEpisodeObject = { ...episode, epCode };
+//         return decoratedEpisodeObject;
+//     });
+//     return modifiedArray;
+// }
+
 function generateNewEpisodeArray(inputArray) {
     const episodeArray = [...inputArray]; // clones the array of episode objects
 
@@ -46,7 +59,15 @@ function filterEpisodeArrayWithSearch(searchTerm, arrayOfObjects) {
     return resultArray;
 }
 
-//use .includes to verify each object against search term, if true then push to result array. Return result array. Update app code to send result array instead.
+// take the array of objects that contain favourite episode_id
+// compare each element of favourites array against the episodewithEpCode array
+// [
+//     { "episode_id": 4952 },
+//     { "episode_id": 4965 },
+//     { "episode_id": 4954 },
+//     { "episode_id": 144328 },
+//     { "episode_id": 4970 }
+// ]
 
 module.exports = {
     generateNewEpisodeArray,
@@ -54,16 +75,3 @@ module.exports = {
     createEpCode,
     filterEpisodeArrayWithSearch,
 };
-
-// using .map() to generate new array of GOT episode objects
-//
-// function addEpCodeToAll(inputArray) {
-//     let modifiedArray = inputArray.map((episode) => {
-//         const stringSeason = episode.season.toString().padStart(2, "0");
-//         const stringNumber = episode.number.toString().padStart(2, "0");
-//         const epCode = S${stringSeason}E${stringNumber};
-//         let decoratedEpisodeObject = { ...episode, epCode };
-//         return decoratedEpisodeObject;
-//     });
-//     return modifiedArray;
-// }
