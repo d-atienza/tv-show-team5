@@ -34,9 +34,19 @@ function findIndividualEpisode(searchTerm, arrayOfObjects) {
 }
 
 function filterEpisodeArrayWithSearch(searchTerm, arrayOfObjects) {
-    let resultArray = [];
-    //use .includes to verify each object against search term, if true then push to result array. Return result array. Update app code to send result array instead.
+    let lowerSearchTerm = searchTerm.toLowerCase();
+
+    let resultArray = arrayOfObjects.filter((object) => {
+        return (
+            object.name.toLowerCase().includes(lowerSearchTerm) ||
+            object.neatSummary.toLowerCase().includes(lowerSearchTerm)
+        );
+    });
+
+    return resultArray;
 }
+
+//use .includes to verify each object against search term, if true then push to result array. Return result array. Update app code to send result array instead.
 
 module.exports = {
     generateNewEpisodeArray,

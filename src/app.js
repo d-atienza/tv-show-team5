@@ -26,11 +26,20 @@ app.get("/", (req, res) => {
 app.get("/GOT", (req, res) => {
     let searchTerm = req.query.filterEp;
     let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
-    let filteredSearchArray = filterEpisodeArrayWithSearch(
-        searchTerm,
-        episodesWithEpCode,
-    );
-    res.render("pages/GOT", { GOT: episodesWithEpCode });
+    let totalEpisodes = episodesWithEpCode.length;
+
+    let filteredSearchArray;
+
+    if (searchTerm == undefined) {
+        filteredSearchArray = episodesWithEpCode;
+    } else {
+        filteredSearchArray = filterEpisodeArrayWithSearch(
+            searchTerm,
+            episodesWithEpCode,
+        );
+    }
+
+    res.render("pages/GOT", { GOT: filteredSearchArray, totalEpisodes });
 });
 
 ////////////////////////////////////
@@ -38,7 +47,6 @@ app.get("/GOT", (req, res) => {
 // level 150 - route parameter to
 
 app.get("/GOT/:episodeid", (req, res) => {
-    // may require a ?
     let searchTerm = req.params.episodeid;
     let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
     let episodeSelection = findIndividualEpisode(
