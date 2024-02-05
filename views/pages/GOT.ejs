@@ -1,4 +1,4 @@
-<%- include("../partials/header.ejs", {title: "Main Page"}) %>
+<%- include("../partials/header.ejs", {title: "Game of Thrones"}) %>
 
 
 <p>This content comes from <a href="https://www.tvmaze.com/shows/82/game-of-thrones">TVMaze - Game of Thrones</a></p>
@@ -6,8 +6,14 @@
 <section>
 
   <p>Game of Thrones is a great show, until the last season anyway.</p>
+  <p>Below is a list of the seasons and their episodes, click an episode for more detail.</p>
 
   <h2>Game of Thrones Episodes</h2>
+  <br>
+  <form action="/GOT" method="GET">
+    <input type="text" name="filterEp" placeholder="Episode Search" />
+    <button type="submit">Submit</button>
+  </form>
   <table>
     <tr>
       <th>Episode Name</th>
@@ -17,7 +23,8 @@
     </tr>
     <% GOT.forEach((episode) => { %>
     <tr>
-      <td><%= episode.name %></td>
+      <td><a href="/GOT/<%= episode.id %>"> <%=episode.name%> </a></td>
+
       <td><%= episode.epCode %></td>
       <td><%= episode.neatSummary %></td>
       <td><img src=<%= episode.image.medium %> width="50%"></td>

@@ -1,0 +1,27 @@
+<%- include("../partials/header.ejs", {title: "Game of Thrones"}) %>
+
+
+<p>This content comes from <a href="https://www.tvmaze.com/shows/82/game-of-thrones">TVMaze - Game of Thrones</a></p>
+
+<section>
+
+  <p>Here is your individual episode selection.</p>
+
+  <div>
+    <h2><%= GOT.name %></h2>
+    <p>Release Date: <%= GOT.airdate %></p>
+    <p>Episode Duration: <%= GOT.runtime %></p>
+    <h4><u>Episode Summary</u></h4>
+    <p><%= GOT.neatSummary %></p>
+
+    <!-- Add any other relevant information or content here -->
+    <img src=<%= GOT.image.original %>>
+
+    <!-- Add any additional content or features as needed -->
+
+  </div>
+
+
+</section>
+
+<%- include("../partials/footer.ejs") %>

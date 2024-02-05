@@ -1,7 +1,10 @@
 const { app } = require("./support/setupExpress");
 const { query } = require("./support/db");
 const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
-const { generateNewEpisodeArray } = require("./supportFunctions");
+const {
+    generateNewEpisodeArray,
+    findIndividualEpisode,
+} = require("./supportFunctions");
 
 /** 
  @typedef {import('./data/episodeType').Episode} Episode
@@ -28,12 +31,18 @@ app.get("/GOT", (req, res) => {
 
 // level 150 - route parameter to
 
-app.get("/GOT/:episode", (req, res) => {
+app.get("/GOT/:episodeid", (req, res) => {
     // may require a ?
-    let episodeSelection = req.params.episode;
+    let searchTerm = req.params.episodeid;
     let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
-    res.render("pages/GOT", { GOT: episodeSelection });
+    let episodeSelection = findIndividualEpisode(
+        searchTerm,
+        episodesWithEpCode,
+    );
+    res.render("pages/GOTEpisode", { GOT: episodeSelection });
 });
+///////////////////////////////////
+// level 200 - form to filter
 
 ////////////////////////////////////
 app.get("/db-test", async (req, res) => {

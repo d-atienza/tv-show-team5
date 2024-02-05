@@ -25,7 +25,19 @@ function createEpCode(episode) {
     return epCode; //expected example: S02E01
 }
 
-module.exports = { generateNewEpisodeArray };
+function findIndividualEpisode(searchTerm, arrayOfObjects) {
+    let numTerm = parseInt(searchTerm);
+    let individualEpisode = arrayOfObjects.find(
+        (object) => object.id === numTerm,
+    );
+    return individualEpisode;
+}
+
+module.exports = {
+    generateNewEpisodeArray,
+    findIndividualEpisode,
+    createEpCode,
+};
 
 // using .map() to generate new array of GOT episode objects
 //
