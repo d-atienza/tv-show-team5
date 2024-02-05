@@ -9,12 +9,10 @@
   <p>Below is a list of the seasons and their episodes, click an episode for more detail.</p>
 
   <h2>Game of Thrones Episodes</h2>
-  <br>
-  <form action="/GOT" method="GET">
+  <form action="/GOT" method="GET" style="display: flex; justify-content: flex-start; padding: 20px; box-sizing: border-box;">
     <input type="text" name="filterEp" placeholder="Episode Search" />
     <button type="submit">Submit</button>
   </form>
-  <br>
   <br>Displaying <%= GOT.length %> episodes of <%= totalEpisodes %>
   <table>
     <tr>
@@ -29,7 +27,7 @@
 
       <td><%= episode.epCode %></td>
       <td><%= episode.neatSummary %></td>
-      <td><img src=<%= episode.image.medium %> width="50%"></td>
+      <td><img src=<%= episode.image.medium %> width="100%"></td>
     </tr>
     <%})%>
   </table>
