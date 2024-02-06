@@ -59,6 +59,11 @@ function filterEpisodeArrayWithSearch(searchTerm, arrayOfObjects) {
     return resultArray;
 }
 
+function extractFavouriteEpId(EpisodeObjectArray) {
+    let resultArray = EpisodeObjectArray.map((object) => object["episode_id"]);
+    return resultArray;
+}
+
 // take the array of objects that contain favourite episode_id
 // compare each element of favourites array against the episodewithEpCode array
 // [
@@ -74,4 +79,5 @@ module.exports = {
     findIndividualEpisode,
     createEpCode,
     filterEpisodeArrayWithSearch,
+    extractFavouriteEpId,
 };

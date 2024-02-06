@@ -5,6 +5,7 @@ const {
     generateNewEpisodeArray,
     findIndividualEpisode,
     filterEpisodeArrayWithSearch,
+    extractFavouriteEpId,
 } = require("./supportFunctions");
 
 /** 
