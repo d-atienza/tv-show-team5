@@ -80,6 +80,10 @@ app.get("/favourites", async (req, res) => {
     res.render("pages/favourites", { GOT: favouriteEpObjArray });
 });
 
+app.post("/GOT/:episodeid", (req, res) => {
+    const example = req.body;
+});
+
 ////////////////////////////////////
 app.get("/db-test", async (req, res) => {
     try {
