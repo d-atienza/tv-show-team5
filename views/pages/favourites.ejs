@@ -5,6 +5,24 @@
 <section>
 
 
+  <h2>Game of Thrones Episodes</h2>
+  <table>
+    <tr>
+      <th>Episode Name</th>
+      <th>Episode Code</th>
+      <th>Episode Summary</th>
+      <th>Episode Image</th>
+    </tr>
+    <% GOT.forEach((episode) => { %>
+    <tr>
+      <td> <%=episode.name%> </td>
+
+      <td><%= episode.epCode %></td>
+      <td><%= episode.neatSummary %></td>
+      <td><img src=<%= episode.image.medium %> width="100%"></td>
+    </tr>
+    <%})%>
+  </table>
 
 </section>
 

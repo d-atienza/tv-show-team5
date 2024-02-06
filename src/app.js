@@ -6,6 +6,7 @@ const {
     findIndividualEpisode,
     filterEpisodeArrayWithSearch,
     extractFavouriteEpId,
+    filterOutFavourites,
 } = require("./supportFunctions");
 
 /** 
@@ -62,9 +63,13 @@ app.get("/GOT/:episodeid", (req, res) => {
 // level 250 - adding in favourite episodes
 app.get("/favourites", async (req, res) => {
     const dbResult = await query("select * from episodes");
-    const rows = dbResult.rows;
-    res.json(rows);
-    //res.render("pages/favourites", { GOT: filteredSearchArray, totalEpisodes });
+    const dbArray = dbResult.rows;
+    const episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
+    const favouriteEpObjArray = filterOutFavourites(
+        dbArray,
+        episodesWithEpCode,
+    );
+    res.render("pages/favourites", { GOT: favouriteEpObjArray });
 });
 
 ////////////////////////////////////

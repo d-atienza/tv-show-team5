@@ -11,6 +11,8 @@
 //     return modifiedArray;
 // }
 
+const { resolveInclude } = require("ejs");
+
 function generateNewEpisodeArray(inputArray) {
     const episodeArray = [...inputArray]; // clones the array of episode objects
 
@@ -64,15 +66,18 @@ function extractFavouriteEpId(EpisodeObjectArray) {
     return resultArray;
 }
 
-// take the array of objects that contain favourite episode_id
-// compare each element of favourites array against the episodewithEpCode array
-// [
-//     { "episode_id": 4952 },
-//     { "episode_id": 4965 },
-//     { "episode_id": 4954 },
-//     { "episode_id": 144328 },
-//     { "episode_id": 4970 }
-// ]
+function filterOutFavourites(ArrayOfFavEpObj, ArrayOfEpisodeObjects) {
+    let resultObjArray = [];
+    let filteredFavouritesArray = extractFavouriteEpId(ArrayOfFavEpObj); //e.g. [{123, 456}] becomes [123, 456]
+    filteredFavouritesArray.forEach((element) => {
+        for (let episodeObj of ArrayOfEpisodeObjects) {
+            if (element === episodeObj.id) {
+                resultObjArray.push(episodeObj);
+            }
+        }
+    });
+    return resultObjArray;
+}
 
 module.exports = {
     generateNewEpisodeArray,
@@ -80,4 +85,5 @@ module.exports = {
     createEpCode,
     filterEpisodeArrayWithSearch,
     extractFavouriteEpId,
+    filterOutFavourites,
 };

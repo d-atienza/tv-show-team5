@@ -3,6 +3,7 @@ const {
     findIndividualEpisode,
     filterEpisodeArrayWithSearch,
     extractFavouriteEpId,
+    filterOutFavourites,
 } = require("./supportFunctions");
 
 //////////Tests for createEpCode function
@@ -107,12 +108,32 @@ const {
 //     { id: 101, name: "Object 4" },
 // ];
 
-test("extract id numbers into an array from an array of objects", () => {
+// test("extract id numbers into an array from an array of objects", () => {
+//     let objectsArray = [
+//         { episode_id: 123, name: "Object 1" },
+//         { episode_id: 456, name: "Object 2" },
+//         { episode_id: 789, name: "Object 3" },
+//         { episode_id: 101, name: "Object 4" },
+//     ];
+//     expect(extractFavouriteEpId(objectsArray)).toEqual([123, 456, 789, 101]);
+// });
+
+test("Returns full details on episodes which match id's from the favourites array", () => {
     let objectsArray = [
-        { episode_id: 123, name: "Object 1" },
-        { episode_id: 456, name: "Object 2" },
-        { episode_id: 789, name: "Object 3" },
-        { episode_id: 101, name: "Object 4" },
+        { id: 4952, name: "Object 1" },
+        { id: 456, name: "Object 2" },
+        { id: 789, name: "Object 3" },
+        { id: 144328, name: "Object 4" },
     ];
-    expect(extractFavouriteEpId(objectsArray)).toEqual([123, 456, 789, 101]);
+    let favouritesArray = [
+        { episode_id: 4952 },
+        { episode_id: 4965 },
+        { episode_id: 4954 },
+        { episode_id: 144328 },
+        { episode_id: 4970 },
+    ];
+    expect(filterOutFavourites(favouritesArray, objectsArray)).toEqual([
+        { id: 4952, name: "Object 1" },
+        { id: 144328, name: "Object 4" },
+    ]);
 });
