@@ -7,8 +7,13 @@
 
   <p>Here is your individual episode selection.</p>
 
+
   <div>
-    <h2><%= GOT.name %></h2>
+    <h2><% if (dbArray.includes(GOT.id)){ %>
+      <img src="https://img.freepik.com/free-vector/star-glossy-yellow-colors-3d-cute-smooth-star-shape-realistic-vector-illustration-isolated-white-background_145391-1342.jpg?size=626&ext=jpg&ga=GA1.1.1448711260.1707177600&semt=ais" width=5% alt="Favourite Image">
+      <%}%> 
+        <%= GOT.name %>
+    </h2>
     <p>Release Date: <%= GOT.airdate %></p>
     <p>Episode Duration: <%= GOT.runtime %></p>
     <h4><u>Episode Summary</u></h4>

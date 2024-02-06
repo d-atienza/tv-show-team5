@@ -25,7 +25,9 @@ app.get("/", (req, res) => {
 ////////////////////////////////////
 
 // level 100 & level 200
-app.get("/GOT", (req, res) => {
+app.get("/GOT", async (req, res) => {
+    const dbResult = await query("select * from episodes");
+    const dbArray = extractFavouriteEpId(dbResult.rows);
     let searchTerm = req.query.filterEp;
     let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
     let totalEpisodes = episodesWithEpCode.length;
@@ -41,21 +43,27 @@ app.get("/GOT", (req, res) => {
         );
     }
 
-    res.render("pages/GOT", { GOT: filteredSearchArray, totalEpisodes });
+    res.render("pages/GOT", {
+        GOT: filteredSearchArray,
+        totalEpisodes,
+        dbArray,
+    });
 });
 
 ////////////////////////////////////
 
 // level 150 - route parameter to singular episode
 
-app.get("/GOT/:episodeid", (req, res) => {
+app.get("/GOT/:episodeid", async (req, res) => {
+    const dbResult = await query("select * from episodes");
+    const dbArray = extractFavouriteEpId(dbResult.rows);
     let searchTerm = req.params.episodeid;
     let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
     let episodeSelection = findIndividualEpisode(
         searchTerm,
         episodesWithEpCode,
     );
-    res.render("pages/GOTEpisode", { GOT: episodeSelection });
+    res.render("pages/GOTEpisode", { GOT: episodeSelection, dbArray });
 });
 
 ////////////////////////////////////

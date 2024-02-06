@@ -16,6 +16,7 @@
   <br>Displaying <%= GOT.length %> episodes of <%= totalEpisodes %>
   <table>
     <tr>
+      <th>Favourite</th>
       <th>Episode Name</th>
       <th>Episode Code</th>
       <th>Episode Summary</th>
@@ -23,7 +24,11 @@
     </tr>
     <% GOT.forEach((episode) => { %>
     <tr>
-      <td><a href="/GOT/<%= episode.id %>"> <%=episode.name%> </a></td>
+      <td><% if (dbArray.includes(episode.id)){ %>
+        <img src="https://img.freepik.com/free-vector/star-glossy-yellow-colors-3d-cute-smooth-star-shape-realistic-vector-illustration-isolated-white-background_145391-1342.jpg?size=626&ext=jpg&ga=GA1.1.1448711260.1707177600&semt=ais" width=15% alt="Favourite Image">
+        <%}%>
+        <a href="/GOT/<%= episode.id %>"> <%=episode.name%> </a>
+      </td>
 
       <td><%= episode.epCode %></td>
       <td><%= episode.neatSummary %></td>
