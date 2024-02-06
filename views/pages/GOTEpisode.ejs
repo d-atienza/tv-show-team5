@@ -14,6 +14,15 @@
       <%}%> 
         <%= GOT.name %>
     </h2>
+
+    <% if (!dbArray.includes(GOT.id)){ %>
+    <form action="/favouritesubmission" method="post">
+      <input type="hidden" name="episode_id" value="<%= GOT.id %>">
+      <button type="submit">Mark As Favourite</button>
+    </form>
+    <%}%> 
+  
+    <BR>
     <p>Release Date: <%= GOT.airdate %></p>
     <p>Episode Duration: <%= GOT.runtime %></p>
     <h4><u>Episode Summary</u></h4>

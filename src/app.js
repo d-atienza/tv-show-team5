@@ -80,8 +80,17 @@ app.get("/favourites", async (req, res) => {
     res.render("pages/favourites", { GOT: favouriteEpObjArray });
 });
 
-app.post("/GOT/:episodeid", (req, res) => {
-    const example = req.body;
+// level 250 - POST method for favourites
+
+app.post("/favouritesubmission", async (req, res) => {
+    const newFavourite = parseInt(req.body.episode_id); // example output - const dbResult = {episode_id : '4952'}
+
+    const addFavourite = await query(
+        "insert into episodes (episode_id) values ($1)",
+        [newFavourite],
+    );
+
+    res.redirect("/favourites");
 });
 
 ////////////////////////////////////
