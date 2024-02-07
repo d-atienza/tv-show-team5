@@ -1,3 +1,4 @@
+//The below are for importing specific functionalities relating to express, PG, GOT Data
 const { app } = require("./support/setupExpress");
 const { query } = require("./support/db");
 const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
