@@ -32,7 +32,7 @@ app.get("/GOT", async (req, res) => {
         filteredSearchArray = episodesWithEpCode;
     } else {
         filteredSearchArray = filterEpisodeArrayWithSearch(
-            searchTerm,
+            searchTerm.toString(),
             episodesWithEpCode,
         );
     }
