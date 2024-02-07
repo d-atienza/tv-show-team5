@@ -1,18 +1,3 @@
-// using .map() to generate new array of GOT episode objects
-//
-// function addEpCodeToAll(inputArray) {
-//     let modifiedArray = inputArray.map((episode) => {
-//         const stringSeason = episode.season.toString().padStart(2, "0");
-//         const stringNumber = episode.number.toString().padStart(2, "0");
-//         const epCode = S${stringSeason}E${stringNumber};
-//         let decoratedEpisodeObject = { ...episode, epCode };
-//         return decoratedEpisodeObject;
-//     });
-//     return modifiedArray;
-// }
-
-//const { resolveInclude } = require("ejs");
-
 function generateNewEpisodeArray(inputArray) {
     const episodeArray = [...inputArray]; // clones the array of episode objects
 

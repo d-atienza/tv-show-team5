@@ -1,4 +1,4 @@
-//The below are for importing specific functionalities relating to express, PG, GOT Data
+//The below are for importing specific functionalities relating to express, PG, GOT Data and support functions.
 const { app } = require("./support/setupExpress");
 const { query } = require("./support/db");
 const { gameOfThronesEpisodes } = require("./data/gameOfThronesData");
@@ -9,32 +9,25 @@ const {
     extractFavouriteEpId,
     filterOutFavourites,
 } = require("./supportFunctions");
-
 /** 
  @typedef {import('./data/episodeType').Episode} Episode
 */
 
-//You can delete this once you see the episodes have loaded ok.
-summariseEpisodesToConsole(gameOfThronesEpisodes);
-
 //configure the server's route handlers
-
+//Server Route Handler for Index Page
 app.get("/", (req, res) => {
     res.render("pages/index");
 });
-
 ////////////////////////////////////
 
-// level 100 & level 200
+//Server Route Handler for GOT page.
 app.get("/GOT", async (req, res) => {
-    const dbResult = await query("select * from episodes");
-    const dbArray = extractFavouriteEpId(dbResult.rows);
-    let searchTerm = req.query.filterEp;
-    let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
-    let totalEpisodes = episodesWithEpCode.length;
-
-    let filteredSearchArray;
-
+    const dbResult = await query("select * from episodes"); //Queries database for all episode data stored, stores in dbResult variable.
+    const dbArray = extractFavouriteEpId(dbResult.rows); //Converts dbResult rows from object array to array of numbers representing episode_id's, stored in dbArray.
+    let searchTerm = req.query.filterEp; //Stores query result from HTML form on /GOT in a variable.
+    let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes); //Creates a copy of existing episode array with addition of formatted episode code and summary.
+    let totalEpisodes = episodesWithEpCode.length; //Stores the length of the formatted Episode Code Array in a variable.
+    let filteredSearchArray; //Evaluates whether searchTerm is undefined, if so then it stores the formatted Episode Code Array in a variable. If searchTerm is not undefined, it filters Episode Code Array with the search Term to store an array of matching episodes in a variable.
     if (searchTerm == undefined) {
         filteredSearchArray = episodesWithEpCode;
     } else {
@@ -45,56 +38,52 @@ app.get("/GOT", async (req, res) => {
     }
 
     res.render("pages/GOT", {
+        // Renders the GOT view from pages, sends objects to the EJS view including Array of Filtered Episode Objects, number of objects in that array and an array of favourite episode id's.
         GOT: filteredSearchArray,
         totalEpisodes,
         dbArray,
     });
 });
 
-////////////////////////////////////
-
-// level 150 - route parameter to singular episode
+//Server Route Handler for specific GOT Episode page.
 
 app.get("/GOT/:episodeid", async (req, res) => {
-    const dbResult = await query("select * from episodes");
-    const dbArray = extractFavouriteEpId(dbResult.rows);
-    let searchTerm = req.params.episodeid;
-    let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
+    const dbResult = await query("select * from episodes"); //Queries database for all episode data stored, stores in dbResult variable.
+    const dbArray = extractFavouriteEpId(dbResult.rows); //Converts dbResult rows from object array to array of numbers representing episode_id's, stored in dbArray.
+    let searchTerm = req.params.episodeid; //Stores the episodeid submitted by the URL as a variable.
+    let episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes); //Creates a copy of existing episode array with addition of formatted episode code and summary.
     let episodeSelection = findIndividualEpisode(
+        //Filters the Episode Object Array using the episodeid submitted by the url to return one episode object.
         searchTerm,
         episodesWithEpCode,
     );
-    res.render("pages/GOTEpisode", { GOT: episodeSelection, dbArray });
+    res.render("pages/GOTEpisode", { GOT: episodeSelection, dbArray }); //Renders view for individual episode object, sends individual object and array of favourite episode_id's.
 });
 
-////////////////////////////////////
-
-// level 250 - adding in favourite episodes
+//Server Route Handler for Favourites Page
 app.get("/favourites", async (req, res) => {
-    const dbResult = await query("select * from episodes");
-    const dbArray = dbResult.rows;
-    const episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes);
+    const dbResult = await query("select * from episodes"); //Queries database for all episode data stored, stores in dbResult variable.
+    const dbArray = dbResult.rows; //Store the dbResult rows data into a variable.
+    const episodesWithEpCode = generateNewEpisodeArray(gameOfThronesEpisodes); //Creates a copy of existing episode array with addition of formatted episode code and summary.
     const favouriteEpObjArray = filterOutFavourites(
+        //Filters the Episode Object Array using the array of favourite episode_id's.
         dbArray,
         episodesWithEpCode,
     );
-    res.render("pages/favourites", { GOT: favouriteEpObjArray });
+    res.render("pages/favourites", { GOT: favouriteEpObjArray }); //Renders view for favourites page, sends array of favourite episode objects.
 });
 
-// level 250 - POST method for favourites
-
+//Server Route Handler for POST requests from form on individual episode pages to mark episodes as favourites.
 app.post("/favouritesubmission", async (req, res) => {
-    const newFavourite = parseInt(req.body.episode_id); // example output - const dbResult = {episode_id : '4952'}
+    const newFavourite = parseInt(req.body.episode_id); //Convert req param received from individual page url to a number, store this in a variable.
+    await query("insert into episodes (episode_id) values ($1)", [
+        newFavourite,
+    ]); //Insert favourite episode into database using parameterised SQL query.
 
-    const addFavourite = await query(
-        "insert into episodes (episode_id) values ($1)",
-        [newFavourite],
-    );
-
-    res.redirect("/favourites");
+    res.redirect("/favourites"); //On receipt of POST request, redirects user to Favourites View.
 });
 
-////////////////////////////////////
+//Server Route Handler for testing connection to database.
 app.get("/db-test", async (req, res) => {
     try {
         const dbResult = await query("select now()");
@@ -108,16 +97,6 @@ app.get("/db-test", async (req, res) => {
         );
     }
 });
-
-/**
- * You can delete this function.  It demonstrates the use of the Episode type in JSDoc.
- * @param {Episode[]} episodes
- * @returns void
- */
-function summariseEpisodesToConsole(episodes) {
-    console.log(`Loaded ${episodes.length} episodes`);
-    console.log("The first episode has name of " + episodes[0].name);
-}
 
 // use the environment variable PORT, or 3000 as a fallback if it is undefined
 const PORT_NUMBER = process.env.PORT ?? 3000;
