@@ -1,4 +1,4 @@
-# Starter code for the academy tv-shows express web app project
+# Starter code for the academy tv-shows express web app project :) 
 
 This is an intermediate starter template for express apps written in JavaScript (not TypeScript).
 
