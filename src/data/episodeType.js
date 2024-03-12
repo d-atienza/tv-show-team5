@@ -10,6 +10,7 @@
  * @property {string} name - Name of the episode.
  * @property {number} season - Season number of the episode.
  * @property {number} number - Episode number in the season.
+ * @property {string} [epCode] - code combining season and episode
  * @property {string} type - Type of the episode.
  * @property {string} airdate - Air date of the episode.
  * @property {string} airtime - Air time of the episode.

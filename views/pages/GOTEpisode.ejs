@@ -1,0 +1,41 @@
+<%- include("../partials/header.ejs", {title: "Game of Thrones"}) %>
+
+
+<p>This content comes from <a href="https://www.tvmaze.com/shows/82/game-of-thrones">TVMaze - Game of Thrones</a></p>
+
+<section>
+
+  <p>Here is your individual episode selection.</p>
+
+
+  <div>
+    <h2><% if (dbArray.includes(GOT.id)){ %>
+      <img src="https://img.freepik.com/free-vector/star-glossy-yellow-colors-3d-cute-smooth-star-shape-realistic-vector-illustration-isolated-white-background_145391-1342.jpg?size=626&ext=jpg&ga=GA1.1.1448711260.1707177600&semt=ais" width=5% alt="Favourite Image">
+      <%}%> 
+        <%= GOT.name %>
+    </h2>
+
+    <% if (!dbArray.includes(GOT.id)){ %>
+    <form action="/favouritesubmission" method="post">
+      <input type="hidden" name="episode_id" value="<%= GOT.id %>">
+      <button type="submit">Mark As Favourite</button>
+    </form>
+    <%}%> 
+  
+    <BR>
+    <p>Release Date: <%= GOT.airdate %></p>
+    <p>Episode Duration: <%= GOT.runtime %></p>
+    <h4><u>Episode Summary</u></h4>
+    <p><%= GOT.neatSummary %></p>
+
+    <!-- Add any other relevant information or content here -->
+    <img src=<%= GOT.image.original %>>
+
+    <!-- Add any additional content or features as needed -->
+
+  </div>
+
+
+</section>
+
+<%- include("../partials/footer.ejs") %>

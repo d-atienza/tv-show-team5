@@ -1,0 +1,41 @@
+<%- include("../partials/header.ejs", {title: "Game of Thrones"}) %>
+
+
+<p>This content comes from <a href="https://www.tvmaze.com/shows/82/game-of-thrones">TVMaze - Game of Thrones</a></p>
+
+<section>
+
+  <p>Game of Thrones is a great show, until the last season anyway.</p>
+  <p>Below is a list of the seasons and their episodes, click an episode for more detail.</p>
+
+  <h2>Game of Thrones Episodes</h2>
+  <form action="/GOT" method="GET">
+    <input type="text" name="filterEp" placeholder="Episode Search" />
+    <button type="submit">Submit</button>
+  </form>
+  <br>Displaying <%= GOT.length %> episodes of <%= totalEpisodes %>
+  <table>
+    <tr>
+      <th>Episode Name</th>
+      <th>Episode Code</th>
+      <th>Episode Summary</th>
+      <th>Episode Image</th>
+    </tr>
+    <% GOT.forEach((episode) => { %>
+    <tr>
+      <td><% if (dbArray.includes(episode.id)){ %>
+        <img src="https://img.freepik.com/free-vector/star-glossy-yellow-colors-3d-cute-smooth-star-shape-realistic-vector-illustration-isolated-white-background_145391-1342.jpg?size=626&ext=jpg&ga=GA1.1.1448711260.1707177600&semt=ais" width=15% alt="Favourite Image">
+        <%}%>
+        <a href="/GOT/<%= episode.id %>"> <%=episode.name%> </a>
+      </td>
+
+      <td><%= episode.epCode %></td>
+      <td><%= episode.neatSummary %></td>
+      <td><img src=<%= episode.image.medium %> width="100%"></td>
+    </tr>
+    <%})%>
+  </table>
+
+</section>
+
+<%- include("../partials/footer.ejs") %>

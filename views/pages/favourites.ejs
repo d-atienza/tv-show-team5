@@ -1,0 +1,29 @@
+<%- include("../partials/header.ejs", {title: "Favourites"}) %>
+
+<p>This content comes from <a href="https://www.tvmaze.com/shows/82/game-of-thrones">TVMaze - Game of Thrones</a></p>
+
+<section>
+
+
+  <h2>Game of Thrones Episodes</h2>
+  <table>
+    <tr>
+      <th>Episode Name</th>
+      <th>Episode Code</th>
+      <th>Episode Summary</th>
+      <th>Episode Image</th>
+    </tr>
+    <% GOT.forEach((episode) => { %>
+    <tr>
+      <td> <%=episode.name%> </td>
+
+      <td><%= episode.epCode %></td>
+      <td><%= episode.neatSummary %></td>
+      <td><img src=<%= episode.image.medium %> width="100%"></td>
+    </tr>
+    <%})%>
+  </table>
+
+</section>
+
+<%- include("../partials/footer.ejs") %>
